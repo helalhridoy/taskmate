@@ -1,26 +1,22 @@
 import React from 'react'
 
-const tasks = [
-    { id: 1001, name: "Task A", time: "2-5 PM" },
-    { id: 1002, name: "Task B", time: "2-5 PM" },
-    { id: 1003, name: "Task C", time: "2-5 PM" },
-    { id: 1004, name: "Task D", time: "2-5 PM" },
-    { id: 1005, name: "Task E", time: "2-5 PM" },
-]
-
-function Showtask() {
+function Showtask({ tasklist, setTasklist }) {
+    const handleClear = (e) => {
+        e.preventDefault();
+        setTasklist([]);
+    }
     return (
         <section className="showTask">
             <div className='head'>
                 <div>
                     <span className='title'>Todo</span>
-                    <span className='count'>0</span>
+                    <span className='count'>{tasklist.length}</span>
 
                 </div>
-                <button className='clearAll'>Clear All</button>
+                <button className='clearAll' onClick={handleClear}>Clear All</button>
             </div>
             <ul>
-                {tasks.map((task) => (
+                {tasklist.map((task) => (
                     <li>
                         <p>
                             <span className={"name"}>{task.name}</span>
