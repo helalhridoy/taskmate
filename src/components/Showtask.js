@@ -1,10 +1,21 @@
 import React from 'react'
 
-function Showtask({ tasklist, setTasklist }) {
+function Showtask({ tasklist, setTasklist, task, setTask }) {
     const handleClear = (e) => {
         e.preventDefault();
         setTasklist([]);
     }
+    const handleEdit = (id) => {
+        const selectedTask = tasklist.find((todo) => todo.id === id);
+        setTask(selectedTask)
+        // console.log(selectedTask)
+    }
+    const handleDelete = (id) => {
+        const updatedTasklist = tasklist.filter((todo) => todo.id !== id);
+        setTasklist(updatedTasklist)
+
+    }
+
     return (
         <section className="showTask">
             <div className='head'>
@@ -16,14 +27,14 @@ function Showtask({ tasklist, setTasklist }) {
                 <button className='clearAll' onClick={handleClear}>Clear All</button>
             </div>
             <ul>
-                {tasklist.map((task) => (
-                    <li>
+                {tasklist.map((todo) => (
+                    <li key={todo.id}>
                         <p>
-                            <span className={"name"}>{task.name}</span>
-                            <span className="time"> {task.time}</span>
+                            <span className={"name"}>{todo.name}</span>
+                            <span className="time"> {todo.time}</span>
                         </p>
-                        <i className='bi bi-pencil-square'></i>
-                        <i className='bi bi-trash'></i>
+                        <i onClick={() => handleEdit(todo.id)} className='bi bi-pencil-square'></i>
+                        <i onClick={() => handleDelete(todo.id)} className='bi bi-trash'></i>
                     </li>
                 ))}
             </ul>
